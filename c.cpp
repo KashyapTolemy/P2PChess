@@ -28,28 +28,112 @@ void solve1(int col1,char row1){
     int des1=des_col-1;
     if(internal[col1][row1-'a']=='e'||internal[col1][row1-'a']=='b'){
         cout<<"\n--INVALID--\n\n";
+        return;
     }
+    // FOR PAWN
     else if(board[col1][row1-'a']=="P "){
         if(des1<col1-2||des1>=col1){
             cout<<"--Move not possible--\n";
             return;
         }
-        else if((des1==col1-1)&&(internal[des1-1][des_row-'a']=='e')){
+        else if((des1==col1-1)&&(internal[des1][des_row-'a']=='e')){
             board[des1][des_row-'a'] =board[col1][row1-'a'];
             board[col1][row1-'a']=". ";
             internal[col1][row1-'a']='e';
             internal[des1][des_row-'a']='w';
         }
-        else if((des1==col1-2)&&(internal[des1-2][des_row-'a']==0)){
+        else if((des1==col1-2)&&(internal[des1][des_row-'a']=='e')){
             board[des1][des_row-'a'] =board[col1][row1-'a'];
             board[col1][row1-'a']=". ";
-            internal[des1][des_row-'a']==1;
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
         }
         count++;
+    }
+    // FOR KNIGHT
+    else if(board[col1][row1-'a']=="N "){
+        if(des1>7||des1<0||des_row-'a'>7||des_row-'a'<0){
+            cout<<"--Move not possible--";
+            return;
+        }
+        else if((des1==col1+1||des_row-'a'==row1-'a'+2)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1-1||des_row-'a'==row1-'a'+2)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1+1||des_row-'a'==row1-'a'-2)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1-1||des_row-'a'==row1-'a'-2)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1+2||des_row-'a'==row1-'a'+1)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1+2||des_row-'a'==row1-'a'-1)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1-2||des_row-'a'==row1-'a'+1)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+        else if((des1==col1-2||des_row-'a'==row1-'a'-1)&&(internal[des1][des_row-'a']=='e')){
+            board[des1][des_row-'a'] =board[col1][row1-'a'];
+            board[col1][row1-'a']=". ";
+            internal[col1][row1-'a']='e';
+            internal[des1][des_row-'a']='w';
+        }
+    }
+    // FOR ROOK //left part not done yet
+    else if(board[col1][row1-'a']=="R "){
+        if((des_row-'a'!=row1-'a')){
+            cout<<"--Move not possible--\n";
+            return;
+        }
+        else{
+            bool b=true;
+            for(int i=row1+1;i<=des_row;i++){
+                if(board[i][des_row-'a']!=". "){
+                    b=false;
+                }
+            }
+            if(b && internal[des1][des_row-'a']=='e'){
+                board[des1][des_row-'a'] =board[col1][row1-'a'];
+                board[col1][row1-'a']=". ";
+                internal[col1][row1-'a']='e';
+                internal[des1][des_row-'a']='w';
+            }
+            else{
+                cout<<"--Move not possible--\n";
+                return;
+            }
+        }
     }
     
     display(board);
 }
+
 void solve2(int col1,char row1){
     cout<<"\nWhere do you wanna place?\n";
     int des_col;
